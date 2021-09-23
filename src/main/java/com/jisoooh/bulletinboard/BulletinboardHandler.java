@@ -8,12 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import com.jisoooh.bulletinboard.model.BulletinBoardModel;
 import reactor.core.publisher.Mono;
 
 @Component
 public class BulletinboardHandler {
-	private static Logger logger = LoggerFactory.getLogger(BulletinBoardModel.class);
+	private static Logger logger = LoggerFactory.getLogger(BulletinboardHandler.class);
 
 	public Mono<ServerResponse> create(ServerRequest request) {
 		return ServerResponse.ok().render("create");
