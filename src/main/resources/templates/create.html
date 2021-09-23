@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BulletinBoard</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body style="text-align: center">
+    <form>
+        <p>Title: <input type="text" id="title" /></p>
+        <p>Content: <textarea type="text" id="content" cols="50" rows="10"></textarea></p>
+        <input type="button" id="btn_submit" value="save" onclick="logintest();"/>
+    </form>
+    <form action="/list", method="get" id="submitForm">
+        <input type="hidden">
+    </form>
+</body>
+<script type="text/javascript">
+    function logintest() {
+        var obj = {'title': document.getElementById('title').value, 'content' : document.getElementById('content').value};
+        $.ajax({
+            type : 'post',
+            url : '/save',
+            data : JSON.stringify(obj),
+            dataType : 'json',
+            contentType : 'application/json; charset=utf-8',
+            error: function(xhr, status, error){
+                alert(error);
+            },
+            success : function(json){
+                alert(json)
+            }
+        });
+        document.forms.namedItem("submitForm").submit();
+    }
+</script>
+</html>
