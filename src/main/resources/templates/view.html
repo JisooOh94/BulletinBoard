@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BulletinBoard</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<p style="text-align: left">
+    <p><h1>게시글 보기</h1></p>
+    <p><strong>no : </strong><span th:text="${article.no}"/></p>
+    <p><strong>title : </strong><span th:text="${article.title}"/></p>
+    <p>
+        <span style="float:left; margin-right: 10px;"><strong>content</strong></span>
+        <form action="/update" method="get" style="float:left; margin-right: 10px;">
+            <input type="hidden" name="articleNo" th:value="${article.no}"/>
+            <input type="submit" value="수정"/>
+        </form>
+        <input type="button" value="삭제" th:onclick="|delete_('${article.no}')|"/>
+        <form action="/list", method="get" id="submitForm">
+            <input type="hidden">
+        </form>
+    </p>
+    <textarea type="text" th:text="${article.content}" cols="50" rows="10" readonly></textarea>
+
+</body>
+<script type="text/javascript">
+    function delete_(articleNo) {
+        $.ajax({
+            async : false,
+            type : 'delete',
+            url : '/api/v1/delete?articleNo=' + articleNo
+        });
+        document.forms.namedItem("submitForm").submit();
+    }
+</script>
+</html>

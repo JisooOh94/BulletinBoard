@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>BulletinBoard</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<p><h1>게시글 수정</h1></p>
+<p><h3>Title</h3></p> <p><input type="text" id="title" th:value="${article.title}"/></p>
+<p><h3>Content</h3></p> <p><textarea type="text" id="content" th:text="${article.content}" cols="50" rows="10"></textarea></p>
+<input type="button" id="btn_submit" value="save" th:onclick="|save('${article.no}')|"/>
+<form action="/list", method="get" id="submitForm">
+    <input type="hidden">
+</form>
+</body>
+<script type="text/javascript">
+    function save(articleNo) {
+        var modifyYmdt = new Date();
+        modifyYmdt.setHours(modifyYmdt.getHours() + 9);
+        modifyYmdt = modifyYmdt.toISOString().replace('T', ' ').substring(0, 19);
+
+        var obj = {'no': articleNo, 'title': document.getElementById('title').value, 'content' : document.getElementById('content').value, 'registYmdt' : null, 'modifyYmdt' : modifyYmdt};
+        $.ajax({
+            async: false,
+            type : 'put',
+            url : '/api/v1/update',
+            data : JSON.stringify(obj),
+            dataType : 'json',
+            contentType : 'application/json; charset=utf-8'
+        });
+        document.forms.namedItem("submitForm").submit();
+    }
+</script>
+</html>
