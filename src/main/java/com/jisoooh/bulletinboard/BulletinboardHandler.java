@@ -1,44 +1,54 @@
 package com.jisoooh.bulletinboard;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.security.InvalidParameterException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import com.jisoooh.bulletinboard.bo.ArticleBo;
+import com.jisoooh.bulletinboard.model.Article;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
 public class BulletinboardHandler {
-	private static Logger logger = LoggerFactory.getLogger(BulletinboardHandler.class);
+	@Autowired
+	public ArticleBo articleBo;
 
 	public Mono<ServerResponse> create(ServerRequest request) {
-		return ServerResponse.ok().render("create");
+		return request.bodyToMono(String.class).flatMap(body -> {
+			articleBo.add(body);
+			return ServerResponse.ok().build();
+		});
 	}
 
-	public Mono<ServerResponse> save(ServerRequest request) {
-		return request.bodyToMono(String.class).flatMap(body -> ServerResponse.ok().render("list"));
+	public Mono<ServerResponse> get(ServerRequest request) {
+		int articleNo = Integer.parseInt(request.queryParam("articleNo").orElseThrow(() -> new InvalidParameterException()));
+		return ServerResponse.ok().body(BodyInserters.fromPublisher(articleBo.get(articleNo), Article.class));
 	}
 
-	public Mono<ServerResponse> read(ServerRequest request) {
-		return ServerResponse.ok().render("index");
-	}
+	public Mono<ServerResponse> getList(ServerRequest request) {
+		int pageNum = Integer.parseInt(request.queryParam("pageNum").orElseThrow(() -> new InvalidParameterException()));
+		Flux<Article> articleList = articleBo.getList(pageNum);
 
-	public Mono<ServerResponse> list(ServerRequest request) {
-		return ServerResponse.ok().render("list");
+		return ServerResponse.ok().body(BodyInserters.fromPublisher(articleList, Article.class));
 	}
 
 	public Mono<ServerResponse> update(ServerRequest request) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("param", "value");
-		return ServerResponse.ok().render("index", params);
+		return request.bodyToMono(String.class)
+				.flatMap(body -> {
+					articleBo.update(body);
+					return ServerResponse.ok().build();
+				});
 	}
 
 	public Mono<ServerResponse> delete(ServerRequest request) {
-		Map<String, Object> params = new HashMap<>();
-		params.put("param", "value");
-		return ServerResponse.ok().render("index", params);
+		int articleNo = Integer.parseInt(request.queryParam("articleNo").orElseThrow(() -> new InvalidParameterException()));
+		return Mono.just(articleNo).flatMap(no -> {
+			articleBo.delete(no);
+			return ServerResponse.ok().build();
+		});
 	}
 }
