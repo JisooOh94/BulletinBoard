@@ -1,7 +1,7 @@
 package com.jisoooh.bulletinboard.bo;
 
-import java.security.InvalidParameterException;
 import java.util.List;
+import java.util.function.Function;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,45 +13,31 @@ import reactor.core.publisher.Mono;
 public class ArticleBo {
 	private final int pageLimit;
 	private final ArticleDao articleDao;
-	private final ObjectMapper objectMapper;
 
-	public ArticleBo(int pageLimit, ArticleDao articleDao, ObjectMapper objectMapper) {
+	public ArticleBo(int pageLimit, ArticleDao articleDao) {
 		this.pageLimit = pageLimit;
 		this.articleDao = articleDao;
-		this.objectMapper = objectMapper;
 	}
 
-	public Mono<Article> get(int articleNo) {
-		Mono<Article> articleMono = Mono.just(articleDao.get(articleNo));
-		return articleMono;
+	public Mono<Article> get(Mono<Integer> articleNoMono) {
+		return articleDao.get(articleNoMono);
 	}
 
-	public Flux<Article> getList(int pageNum) {
-		Mono<List<Article>> listMono = Mono.just(articleDao.getList((pageNum - 1) * pageLimit, pageLimit));
-		return listMono.flatMapMany(Flux::fromIterable);
+	public Flux<Article> getList(Mono<Integer> pageNumMono) {
+		return pageNumMono.map(pageNum -> (long)(pageNum - 1) * pageLimit)
+				.as(pageNumM -> Mono.zip(pageNumM, Mono.just(pageLimit)))
+				.as(tuple2Mono -> articleDao.getList(tuple2Mono));
 	}
 
-	public void add(String articleStr) {
-		Article article = null;
-		try {
-			article = objectMapper.readValue(articleStr, Article.class);
-		} catch (JsonProcessingException e) {
-			throw new InvalidParameterException();
-		}
-		articleDao.add(article);
+	public Mono<Void> add(Mono<Article> articleMono) {
+		return articleDao.add(articleMono);
 	}
 
-	public void update(String articleStr) {
-		Article article = null;
-		try {
-			article = objectMapper.readValue(articleStr, Article.class);
-		} catch (JsonProcessingException e) {
-			throw new InvalidParameterException();
-		}
-		articleDao.update(article);
+	public Mono<Void> update(Mono<Article> articleMono) {
+		return articleDao.update(articleMono);
 	}
 
-	public void delete(int articleNo) {
-		articleDao.delete(articleNo);
+	public Mono<Void> delete(Mono<Integer> articleNoMono) {
+		return articleDao.delete(articleNoMono);
 	}
 }

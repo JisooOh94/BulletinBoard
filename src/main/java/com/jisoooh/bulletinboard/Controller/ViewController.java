@@ -1,4 +1,4 @@
-package com.jisoooh.bulletinboard;
+package com.jisoooh.bulletinboard.Controller;
 
 import java.util.List;
 
@@ -29,6 +29,7 @@ public class ViewController {
 				.build(true)
 				.toUriString();
 
+		@SuppressWarnings("unchecked")
 		List<Article> articleList = restTemplate.getForObject(uri, List.class);
 
 		model.addAttribute("articles", articleList);
