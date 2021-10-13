@@ -1,0 +1,6 @@
+database:
+  h2:
+    userName: user
+    password: user
+article:
+  pageLimit: 100

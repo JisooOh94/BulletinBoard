@@ -1,9 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>BulletinBoard</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        table { width: 50%; border: 1px solid #444444; text-align: center; }
+        th, td { border: 1px solid #444444; }
+    </style>
 </head>
-<body style="text-align: center">
+<body style="text-align: left">
+    <p><h1>게시글 목록</h1></p>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>제목</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="article : ${articles}">
+                <td th:text="${article.no}"/>
+                <td><a th:href="@{http://localhost:8080/view(articleNo=${article.no})}" th:text="${article.title}"/></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form action="/create", method="get">
+        <input type="submit" value="새 글 작성">
+    </form>
 </body>
-    <p th:text="${body}"/>
 </html>

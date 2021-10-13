@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>BulletinBoard</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body style="text-align: center">
-    <form>
-        <p>Title: <input type="text" id="title" /></p>
-        <p>Content: <textarea type="text" id="content" cols="50" rows="10"></textarea></p>
-        <input type="button" id="btn_submit" value="save" onclick="logintest();"/>
-    </form>
+<body style="text-align: left">
+    <p><h1>게시글 저장</h1></p>
+    <p><h3>Title</h3></p> <p><input type="text" id="title" /></p>
+    <p><h3>Content</h3></p> <p><textarea type="text" id="content" cols="50" rows="10"></textarea></p>
+    <input type="button" id="btn_submit" value="save" onclick="save();"/>
     <form action="/list", method="get" id="submitForm">
         <input type="hidden">
     </form>
 </body>
 <script type="text/javascript">
-    function logintest() {
-        var obj = {'title': document.getElementById('title').value, 'content' : document.getElementById('content').value};
+    function save() {
+        var registYmdt = new Date();
+        registYmdt.setHours(registYmdt.getHours() + 9);
+        registYmdt = registYmdt.toISOString().replace('T', ' ').substring(0, 19);
+
+        var obj = {'title': document.getElementById('title').value, 'content' : document.getElementById('content').value, 'registYmdt' : registYmdt, 'modifyYmdt' : registYmdt};
         $.ajax({
+            async: false,
             type : 'post',
-            url : '/save',
+            url : '/api/v1/create',
             data : JSON.stringify(obj),
             dataType : 'json',
-            contentType : 'application/json; charset=utf-8',
-            error: function(xhr, status, error){
-                alert(error);
-            },
-            success : function(json){
-                alert(json)
-            }
+            contentType : 'application/json; charset=utf-8'
         });
         document.forms.namedItem("submitForm").submit();
     }
