@@ -20,7 +20,7 @@
         registYmdt.setHours(registYmdt.getHours() + 9);
         registYmdt = registYmdt.toISOString().replace('T', ' ').substring(0, 19);
 
-        var obj = {'title': document.getElementById('title').value, 'content' : document.getElementById('content').value, 'registYmdt' : registYmdt, 'modifyYmdt' : registYmdt};
+        var obj = {'title': document.getElementById('title').value, 'content' : document.getElementById('content').value, 'regist_ymdt' : registYmdt, 'modify_ymdt' : registYmdt};
         $.ajax({
             async: false,
             type : 'post',

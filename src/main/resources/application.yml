@@ -2,5 +2,8 @@ database:
   h2:
     userName: user
     password: user
+    maxPoolSize: 10
+    connectionTimeout: 1000
+    maxLifeTime: 10000
 article:
   pageLimit: 100
