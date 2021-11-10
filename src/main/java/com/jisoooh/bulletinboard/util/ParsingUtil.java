@@ -2,10 +2,10 @@ package com.jisoooh.bulletinboard.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import reactor.core.publisher.Mono;
 
 public class ParsingUtil {
 	private static Logger logger = LoggerFactory.getLogger(ParsingUtil.class);
@@ -21,8 +21,11 @@ public class ParsingUtil {
 		throw new AssertionError();
 	}
 
-	public static <T> Mono<T> parse(Object source, Class<T> targetClass, String parseFailMessage) {
-		return Mono.just(mapper.convertValue(source, targetClass))
-				.doOnError(IllegalArgumentException.class, throwable -> logger.error(parseFailMessage, throwable));
+	public static <T> T parse(Object source, Class<T> targetClass) {
+		return mapper.convertValue(source, targetClass);
+	}
+
+	public static <T> T parse(Object source, TypeReference<T> targetClass) {
+		return mapper.convertValue(source, targetClass);
 	}
 }

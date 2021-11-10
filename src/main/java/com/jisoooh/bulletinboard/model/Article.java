@@ -1,9 +1,10 @@
 package com.jisoooh.bulletinboard.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
+import org.springframework.data.annotation.Id;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Article {
 	public static final String NO = "no";
@@ -12,33 +13,18 @@ public class Article {
 	public static final String REGIST_YMDT = "registYmdt";
 	public static final String MODIFY_YMDT = "modifyYmdt";
 
-	private long no;
+	@Id
+	private Long no;
 	private String title;
 	private String content;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonProperty("regist_ymdt")
 	private LocalDateTime registYmdt;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonProperty("modify_ymdt")
 	private LocalDateTime modifyYmdt;
 
-	public Article() {
-	}
-
-	public Article(String title, String content, LocalDateTime registYmdt, LocalDateTime modifyYmdt) {
-		this.title = title;
-		this.content = content;
-		this.registYmdt = registYmdt;
-		this.modifyYmdt = modifyYmdt;
-	}
-
-	public Article(long no, String title, String content, LocalDateTime registYmdt, LocalDateTime modifyYmdt) {
-		this.no = no;
-		this.title = title;
-		this.content = content;
-		this.registYmdt = registYmdt;
-		this.modifyYmdt = modifyYmdt;
-	}
-
-	public long getNo() {
+	public Long getNo() {
 		return no;
 	}
 

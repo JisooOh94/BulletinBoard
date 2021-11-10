@@ -7,6 +7,6 @@ CREATE TABLE article (
   `no`  BIGINT DEFAULT seq.nextval PRIMARY KEY,
   title VARCHAR(20) NOT NULL,
   content VARCHAR(100),
-  registYmdt  TIMESTAMP,
-  modifyYmdt  TIMESTAMP
+  regist_ymdt  TIMESTAMP,
+  modify_ymdt  TIMESTAMP
 );
