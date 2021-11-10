@@ -25,15 +25,15 @@ public class H2R2dbcConfig extends AbstractR2dbcConfiguration {
 	private static final String H2_DDL_PATH = "scheme/DDL.sql";
 	private static final String H2_DML_PATH = "scheme/DML.sql";
 
-	@Value("${database.h2.userName}")
+	@Value("${spring.r2dbc.username}")
 	private String dbUserName;
-	@Value("${database.h2.password}")
+	@Value("${spring.r2dbc.password}")
 	private String dbPassword;
-	@Value("${database.h2.maxPoolSize}")
+	@Value("${spring.r2dbc.pool.max-size}")
 	private int maxPoolSize;
-	@Value("${database.h2.connectionTimeout}")
+	@Value("${spring.r2dbc.pool.max-create-connection-time}")
 	private long connectionTimeout;
-	@Value("${database.h2.maxLifeTime}")
+	@Value("${spring.r2dbc.pool.max-life-time}")
 	private long maxLifeTime;
 
 	@Override

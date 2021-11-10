@@ -1,9 +1,12 @@
-database:
-  h2:
-    userName: user
+spring:
+  r2dbc:
+    url: r2dbc:h2:mem:///testdb
+    username: user
     password: user
-    maxPoolSize: 10
-    connectionTimeout: 1000
-    maxLifeTime: 10000
+    pool:
+      max-size: 10
+      max-create-connection-time: 1000
+      max-life-time: 10000
+
 article:
   pageLimit: 100
