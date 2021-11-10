@@ -14,8 +14,8 @@ public class ArticleConfig {
 	private int pageLimit;
 
 	@Bean
-	public ArticleDao articleDao(DatabaseClient databaseClient, ObjectMapper objectMapper) {
-		return new ArticleDao(databaseClient, objectMapper);
+	public ArticleDao articleDao(DatabaseClient databaseClient) {
+		return new ArticleDao(databaseClient);
 	}
 
 	@Bean
