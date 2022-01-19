@@ -1,4 +1,4 @@
-package com.jisoooh.bulletinboard.Controller;
+package com.jisoooh.webfluxapp.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.jisoooh.bulletinboard.bo.ArticleBo;
-import com.jisoooh.bulletinboard.model.Article;
+import com.jisoooh.webfluxapp.bo.ArticleBo;
+import com.jisoooh.webfluxapp.model.Article;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

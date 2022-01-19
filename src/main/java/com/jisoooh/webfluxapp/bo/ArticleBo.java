@@ -1,7 +1,7 @@
-package com.jisoooh.bulletinboard.bo;
+package com.jisoooh.webfluxapp.bo;
 
-import com.jisoooh.bulletinboard.dao.ArticleDao;
-import com.jisoooh.bulletinboard.model.Article;
+import com.jisoooh.webfluxapp.dao.ArticleDao;
+import com.jisoooh.webfluxapp.model.Article;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

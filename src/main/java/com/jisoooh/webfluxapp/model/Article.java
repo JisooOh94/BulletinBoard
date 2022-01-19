@@ -1,4 +1,4 @@
-package com.jisoooh.bulletinboard.model;
+package com.jisoooh.webfluxapp.model;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package com.jisoooh.bulletinboard.Controller;
+package com.jisoooh.webfluxapp.Controller;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import com.jisoooh.bulletinboard.model.Article;
+import com.jisoooh.webfluxapp.model.Article;
 
 @Controller
 public class ViewController {

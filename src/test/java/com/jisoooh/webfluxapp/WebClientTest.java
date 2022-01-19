@@ -1,4 +1,4 @@
-package com.jisoooh.bulletinboard;
+package com.jisoooh.webfluxapp;
 
 import static org.junit.Assert.*;
 

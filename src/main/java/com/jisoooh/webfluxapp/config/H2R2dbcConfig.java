@@ -1,4 +1,4 @@
-package com.jisoooh.bulletinboard.config;
+package com.jisoooh.webfluxapp.config;
 
 import static io.r2dbc.spi.ConnectionFactoryOptions.*;
 

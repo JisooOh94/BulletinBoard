@@ -1,4 +1,4 @@
-package com.jisoooh.bulletinboard.util;
+package com.jisoooh.webfluxapp.util;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;

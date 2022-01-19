@@ -1,13 +1,11 @@
-package com.jisoooh.bulletinboard.config;
+package com.jisoooh.webfluxapp.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
-import org.springframework.r2dbc.core.DatabaseClient;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jisoooh.bulletinboard.bo.ArticleBo;
-import com.jisoooh.bulletinboard.dao.ArticleDao;
+import com.jisoooh.webfluxapp.bo.ArticleBo;
+import com.jisoooh.webfluxapp.dao.ArticleDao;
 
 @Configuration
 public class ArticleConfig {

@@ -1,7 +1,7 @@
-package com.jisoooh.bulletinboard.dao;
+package com.jisoooh.webfluxapp.dao;
 
-import static com.jisoooh.bulletinboard.util.ParsingUtil.parse;
-import static com.jisoooh.bulletinboard.util.RetryUtil.*;
+import static com.jisoooh.webfluxapp.util.ParsingUtil.parse;
+import static com.jisoooh.webfluxapp.util.RetryUtil.*;
 import static java.time.Duration.*;
 import static org.springframework.data.relational.core.query.Criteria.*;
 import static org.springframework.data.relational.core.query.Query.*;
@@ -14,7 +14,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.relational.core.query.Query;
 import org.springframework.data.relational.core.query.Update;
-import com.jisoooh.bulletinboard.model.Article;
+import com.jisoooh.webfluxapp.model.Article;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;

@@ -1,4 +1,4 @@
-package com.jisoooh.bulletinboard.util;
+package com.jisoooh.webfluxapp.util;
 
 public class CommonConstants {
 	private CommonConstants() {
